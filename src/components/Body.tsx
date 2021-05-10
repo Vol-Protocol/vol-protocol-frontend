@@ -329,7 +329,18 @@ export default function Body() {
     }
   }
 
-  return <BodyWrapper>
+  return (<BodyWrapper>
+    <Title>supported token pairs:
+      <br />
+    </Title>
+    <Block>
+      <p>WETHDAI</p>
+      <p>WBTCDAI <span>*coming soon!</span></p>
+    </Block>
+    <Title>Current Volatility</Title>
+    <p>534.61</p>
+    <Button>buy ETHvol</Button>
+    <Button>sell ETHvol</Button>
     <Chart
             width={'600px'}
             height={'400px'}
@@ -346,10 +357,36 @@ export default function Body() {
             }}
             rootProps={{ 'data-testid': '1' }}
           />
-  </BodyWrapper>;
+  </BodyWrapper>);
 }
 
 const BodyWrapper = styled.section`
   margin: 0 auto;
   text-align: center;
+`;
+
+const Block = styled.div`
+  background-color: white;
+  padding: 16px;
+  border: 1px solid blue;
+  display: block;
+  margin: 0 auto;
+  width: 30%;
+`;
+
+const Button = styled.div`
+  background-color: white;
+  padding: 8px;
+  border: 1px solid blue;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: lightblue;
+  }
+`;
+
+const Title = styled.h3`
+
 `;
