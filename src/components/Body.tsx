@@ -309,7 +309,25 @@ let dataArray = [
 export default function Body() {
   const { chainId, library } = useWeb3React<Web3Provider>();
 
-  const volProtocolV1Contract = getVolProtocolV1ContractInstance(library, chainId);
+  const volProtocolV1Contract = getVolProtocolV1ContractInstance(
+    library,
+    chainId
+  );
+
+  let vol;
+  if (library !== undefined) {
+    try {
+      (async () => {
+        if (undefined !== typeof window["ethereum"]) {
+          vol = await volProtocolV1Contract.getVol();
+          vol = vol.toString();
+          console.log('vol ==>', vol);
+        }
+      })();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return <BodyWrapper>
     <Chart
