@@ -1,42 +1,48 @@
-// this needs to be changed 
-export const volProtocolV1AddressDev = "0x09635F643e140090A9A8Dcd712eD6285858ceBef";
+// this needs to be changed
+export const volProtocolV1AddressDev =
+  "0x67d269191c92Caf3cD7723F116c85e6E9bf55933";
 export const volProtocolV1AbiDev = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "_name",
+        type: "string"
+      },
+      {
+        internalType: "string",
+        name: "_symbol",
+        type: "string"
+      },
+      {
+        internalType: "uint256[30]",
+        name: "_price30Days",
+        type: "uint256[30]"
+      },
+      {
         internalType: "address",
-        name: "_charmV02OptionFactoryAddress",
+        name: "_addr1",
         type: "address"
       },
       {
         internalType: "address",
-        name: "_ETHOptionAddressHegicV888",
+        name: "_addr2",
         type: "address"
       },
       {
         internalType: "address",
-        name: "_WBTCOptionAddressHegicV888",
+        name: "_uniSwapPairAddress",
         type: "address"
       },
       {
-        internalType: "address",
-        name: "_ETHPoolAddressHegicV888",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "_WBTCPoolAddressHegicV888",
-        type: "address"
+        internalType: "bool",
+        name: "_reverse",
+        type: "bool"
       },
       {
         internalType: "uint256",
-        name: "_strikesRange",
+        name: "_vol",
         type: "uint256"
-      },
-      {
-        internalType: "address[]",
-        name: "_minterAmmAddressList",
-        type: "address[]"
       }
     ],
     stateMutability: "nonpayable",
@@ -48,25 +54,56 @@ export const volProtocolV1AbiDev = [
       {
         indexed: true,
         internalType: "address",
-        name: "previousOwner",
+        name: "owner",
         type: "address"
       },
       {
         indexed: true,
         internalType: "address",
-        name: "newOwner",
+        name: "spender",
         type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256"
       }
     ],
-    name: "OwnershipTransferred",
+    name: "Approval",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256"
+      }
+    ],
+    name: "Transfer",
     type: "event"
   },
   {
     inputs: [],
-    name: "MarketSirenV1",
+    name: "addr1",
     outputs: [
       {
-        internalType: "contract IMarketSirenV1",
+        internalType: "address",
         name: "",
         type: "address"
       }
@@ -76,10 +113,10 @@ export const volProtocolV1AbiDev = [
   },
   {
     inputs: [],
-    name: "MinterAmmSirenV1",
+    name: "addr2",
     outputs: [
       {
-        internalType: "contract IMinterAmmSirenV1",
+        internalType: "address",
         name: "",
         type: "address"
       }
@@ -90,12 +127,17 @@ export const volProtocolV1AbiDev = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_size",
-        type: "uint256"
+        internalType: "address",
+        name: "owner",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
       }
     ],
-    name: "_calculatePremiumSirenV1",
+    name: "allowance",
     outputs: [
       {
         internalType: "uint256",
@@ -109,89 +151,36 @@ export const volProtocolV1AbiDev = [
   {
     inputs: [
       {
-        internalType: "contract IMinterAmmSirenV1[]",
-        name: "_minterAmmInstanceList",
-        type: "address[]"
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
       }
     ],
-    name: "_getMarketAddressList",
-    outputs: [],
+    name: "approve",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
     stateMutability: "nonpayable",
     type: "function"
   },
   {
     inputs: [
       {
-        internalType: "enum DataTypes.Asset",
-        name: "_underlyingAsset",
-        type: "uint8"
-      },
-      {
-        internalType: "enum DataTypes.OptionType",
-        name: "_optionType",
-        type: "uint8"
-      },
-      {
-        internalType: "uint256",
-        name: "_expiryTimestamp",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_strikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_size",
-        type: "uint256"
+        internalType: "address",
+        name: "account",
+        type: "address"
       }
     ],
-    name: "_getMatchedCountFromExactValues",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum DataTypes.Asset",
-        name: "_underlyingAsset",
-        type: "uint8"
-      },
-      {
-        internalType: "enum DataTypes.OptionType",
-        name: "_optionType",
-        type: "uint8"
-      },
-      {
-        internalType: "uint256",
-        name: "_expiryTimestamp",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_minStrikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_maxStrikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_size",
-        type: "uint256"
-      }
-    ],
-    name: "_getMatchedCountFromRangeValuesSirenV1",
+    name: "balanceOf",
     outputs: [
       {
         internalType: "uint256",
@@ -204,681 +193,49 @@ export const volProtocolV1AbiDev = [
   },
   {
     inputs: [],
-    name: "_getOptionListSirenV1",
+    name: "decimals",
     outputs: [
       {
-        components: [
-          {
-            internalType: "enum DataTypes.Protocol",
-            name: "protocol",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "underlyingAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "paymentAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.OptionType",
-            name: "optionType",
-            type: "uint8"
-          },
-          {
-            internalType: "uint256",
-            name: "expiryTimestamp",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "strikeUSD",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "size",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "premium",
-            type: "uint256"
-          }
-        ],
-        internalType: "struct DataTypes.Option[]",
+        internalType: "uint8",
         name: "",
-        type: "tuple[]"
+        type: "uint8"
       }
     ],
     stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address[]",
-        name: "_marketAddressList",
-        type: "address[]"
-      }
-    ],
-    name: "_instantiateMarket",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address[]",
-        name: "_minterAmmAddressList",
-        type: "address[]"
-      }
-    ],
-    name: "_instantiateMinterAmm",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    name: "expiriesSecondsFromNowStandard",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum DataTypes.Asset",
-        name: "_underlyingAsset",
-        type: "uint8"
-      },
-      {
-        internalType: "enum DataTypes.OptionType",
-        name: "_optionType",
-        type: "uint8"
-      },
-      {
-        internalType: "uint256",
-        name: "_expiryTimestamp",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_strikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_sizeWEI",
-        type: "uint256"
-      }
-    ],
-    name: "getBestOptionFromExactValues",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "enum DataTypes.Protocol",
-            name: "protocol",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "underlyingAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "paymentAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.OptionType",
-            name: "optionType",
-            type: "uint8"
-          },
-          {
-            internalType: "uint256",
-            name: "expiryTimestamp",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "strikeUSD",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "size",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "premium",
-            type: "uint256"
-          }
-        ],
-        internalType: "struct DataTypes.Option",
-        name: "",
-        type: "tuple"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum DataTypes.Asset",
-        name: "_underlyingAsset",
-        type: "uint8"
-      },
-      {
-        internalType: "enum DataTypes.OptionType",
-        name: "_optionType",
-        type: "uint8"
-      },
-      {
-        internalType: "uint256",
-        name: "_expiryTimestamp",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_minStrikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_maxStrikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_sizeWEI",
-        type: "uint256"
-      }
-    ],
-    name: "getBestOptionFromRangeValues",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "enum DataTypes.Protocol",
-            name: "protocol",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "underlyingAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "paymentAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.OptionType",
-            name: "optionType",
-            type: "uint8"
-          },
-          {
-            internalType: "uint256",
-            name: "expiryTimestamp",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "strikeUSD",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "size",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "premium",
-            type: "uint256"
-          }
-        ],
-        internalType: "struct DataTypes.Option",
-        name: "",
-        type: "tuple"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum DataTypes.Asset",
-        name: "_underlyingAsset",
-        type: "uint8"
-      },
-      {
-        internalType: "enum DataTypes.OptionType",
-        name: "_optionType",
-        type: "uint8"
-      },
-      {
-        internalType: "uint256",
-        name: "_expiryTimestamp",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_strikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_size",
-        type: "uint256"
-      }
-    ],
-    name: "getOptionFromExactValuesSirenV1",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "enum DataTypes.Protocol",
-            name: "protocol",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "underlyingAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "paymentAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.OptionType",
-            name: "optionType",
-            type: "uint8"
-          },
-          {
-            internalType: "uint256",
-            name: "expiryTimestamp",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "strikeUSD",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "size",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "premium",
-            type: "uint256"
-          }
-        ],
-        internalType: "struct DataTypes.Option",
-        name: "",
-        type: "tuple"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum DataTypes.Asset",
-        name: "_underlyingAsset",
-        type: "uint8"
-      },
-      {
-        internalType: "enum DataTypes.OptionType",
-        name: "_optionType",
-        type: "uint8"
-      },
-      {
-        internalType: "uint256",
-        name: "_expiryTimestamp",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_strikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_size",
-        type: "uint256"
-      }
-    ],
-    name: "getOptionListFromExactValues",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "enum DataTypes.Protocol",
-            name: "protocol",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "underlyingAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "paymentAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.OptionType",
-            name: "optionType",
-            type: "uint8"
-          },
-          {
-            internalType: "uint256",
-            name: "expiryTimestamp",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "strikeUSD",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "size",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "premium",
-            type: "uint256"
-          }
-        ],
-        internalType: "struct DataTypes.Option[]",
-        name: "",
-        type: "tuple[]"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum DataTypes.Asset",
-        name: "_underlyingAsset",
-        type: "uint8"
-      },
-      {
-        internalType: "enum DataTypes.OptionType",
-        name: "_optionType",
-        type: "uint8"
-      },
-      {
-        internalType: "uint256",
-        name: "_expiryTimestamp",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_minStrikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_maxStrikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_size",
-        type: "uint256"
-      }
-    ],
-    name: "getOptionListFromRangeValues",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "enum DataTypes.Protocol",
-            name: "protocol",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "underlyingAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "paymentAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.OptionType",
-            name: "optionType",
-            type: "uint8"
-          },
-          {
-            internalType: "uint256",
-            name: "expiryTimestamp",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "strikeUSD",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "size",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "premium",
-            type: "uint256"
-          }
-        ],
-        internalType: "struct DataTypes.Option[]",
-        name: "",
-        type: "tuple[]"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum DataTypes.Asset",
-        name: "_underlyingAsset",
-        type: "uint8"
-      },
-      {
-        internalType: "enum DataTypes.OptionType",
-        name: "_optionType",
-        type: "uint8"
-      },
-      {
-        internalType: "uint256",
-        name: "_expiryTimestamp",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_minStrikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_maxStrikeUSD",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "_size",
-        type: "uint256"
-      }
-    ],
-    name: "getOptionListFromRangeValuesSirenV1",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "enum DataTypes.Protocol",
-            name: "protocol",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "underlyingAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.Asset",
-            name: "paymentAsset",
-            type: "uint8"
-          },
-          {
-            internalType: "enum DataTypes.OptionType",
-            name: "optionType",
-            type: "uint8"
-          },
-          {
-            internalType: "uint256",
-            name: "expiryTimestamp",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "strikeUSD",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "size",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "premium",
-            type: "uint256"
-          }
-        ],
-        internalType: "struct DataTypes.Option[]",
-        name: "",
-        type: "tuple[]"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address[]",
-        name: "_minterAmmAddressList",
-        type: "address[]"
-      }
-    ],
-    name: "init",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function"
   },
   {
     inputs: [
       {
         internalType: "address",
-        name: "_ETHOptionAddressHegicV888",
+        name: "spender",
         type: "address"
       },
       {
-        internalType: "address",
-        name: "_WBTCOptionAddressHegicV888",
-        type: "address"
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256"
       }
     ],
-    name: "instantiateOptionContracts",
-    outputs: [],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_optionFactoryAddressCharmV02",
-        type: "address"
-      }
-    ],
-    name: "instantiateOptionFactoryCharmV02",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_ETHPoolAddressHegicV888",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "_WBTCPoolAddressHegicV888",
-        type: "address"
-      }
-    ],
-    name: "instantiatePoolContracts",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
+    inputs: [],
+    name: "getVol",
+    outputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256"
-      }
-    ],
-    name: "marketAddressList",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
       }
     ],
     stateMutability: "view",
@@ -887,36 +244,48 @@ export const volProtocolV1AbiDev = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
         internalType: "uint256",
-        name: "",
+        name: "addedValue",
         type: "uint256"
       }
     ],
-    name: "marketInstanceList",
+    name: "increaseAllowance",
     outputs: [
       {
-        internalType: "contract IMarketSirenV1",
+        internalType: "bool",
         name: "",
-        type: "address"
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "lastUpdatedTimestamp",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
       }
     ],
     stateMutability: "view",
     type: "function"
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    name: "minterAmmInstanceList",
+    inputs: [],
+    name: "name",
     outputs: [
       {
-        internalType: "contract IMinterAmmSirenV1",
+        internalType: "string",
         name: "",
-        type: "address"
+        type: "string"
       }
     ],
     stateMutability: "view",
@@ -936,13 +305,6 @@ export const volProtocolV1AbiDev = [
     type: "function"
   },
   {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
     inputs: [
       {
         internalType: "uint256",
@@ -950,7 +312,65 @@ export const volProtocolV1AbiDev = [
         type: "uint256"
       }
     ],
-    name: "strikesStandard",
+    name: "price30Days",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "reverse",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "x",
+        type: "uint256"
+      }
+    ],
+    name: "sqrt",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "y",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "symbol",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "totalSupply",
     outputs: [
       {
         internalType: "uint256",
@@ -965,26 +385,86 @@ export const volProtocolV1AbiDev = [
     inputs: [
       {
         internalType: "address",
-        name: "newOwner",
+        name: "recipient",
         type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
       }
     ],
-    name: "transferOwnership",
-    outputs: [],
+    name: "transfer",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
     stateMutability: "nonpayable",
     type: "function"
   },
   {
     inputs: [
       {
+        internalType: "address",
+        name: "sender",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "recipient",
+        type: "address"
+      },
+      {
         internalType: "uint256",
-        name: "_strikesRange",
+        name: "amount",
         type: "uint256"
       }
     ],
-    name: "updateStrikesStandard",
+    name: "transferFrom",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "uniSwapPairAddress",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "updateVol",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "vol",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
     type: "function"
   }
 ];
