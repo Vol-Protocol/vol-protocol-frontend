@@ -7,6 +7,7 @@ export default function Header() {
   return (
     <>
       <HeaderWrapper>
+        <ProtocolName>Vol Protocol</ProtocolName>
         <Account />
         <Balance />
         <Network />
@@ -90,4 +91,8 @@ const HeaderWrapper = styled.section`
   maxWidth: 20rem,
   minHeight: 400px,
   margin: auto
+`;
+
+const ProtocolName = styled.h1`
+  text-align: center;
 `;
