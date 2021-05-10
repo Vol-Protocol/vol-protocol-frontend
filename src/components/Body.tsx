@@ -330,20 +330,11 @@ export default function Body() {
   }
 
   return (<BodyWrapper>
-    <Title>supported token pairs:
-      <br />
-    </Title>
-    <Block>
-      <p>WETHDAI</p>
-      <p>WBTCDAI <span>*coming soon!</span></p>
-    </Block>
-    <Title>Current Volatility</Title>
+    <Title>Current ETH Volatility</Title>
     <p>534.61</p>
-    <Button>buy ETHvol</Button>
-    <Button>sell ETHvol</Button>
+    <Button>buy vETH</Button>
+    <Button>sell vETH</Button>
     <Chart
-            width={'600px'}
-            height={'400px'}
             chartType="LineChart"
             loader={<div>Loading Chart</div>}
             data={dataArray}
@@ -363,15 +354,7 @@ export default function Body() {
 const BodyWrapper = styled.section`
   margin: 0 auto;
   text-align: center;
-`;
-
-const Block = styled.div`
-  background-color: white;
-  padding: 16px;
-  border: 1px solid blue;
-  display: block;
-  margin: 0 auto;
-  width: 30%;
+  width: 95%;
 `;
 
 const Button = styled.div`
@@ -388,5 +371,5 @@ const Button = styled.div`
 `;
 
 const Title = styled.h3`
-
 `;
+
